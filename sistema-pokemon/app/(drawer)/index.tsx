@@ -28,9 +28,10 @@ const styles = StyleSheet.create({
   },
 
   imagem: {
-    height: '200',
-    width: '390',
+    height: 180,
+    width: 325,
     alignSelf: 'center',
+    borderRadius: 8,
   },
 
   texto: {

@@ -1,12 +1,12 @@
 import { Drawer } from 'expo-router/drawer';
-import { Ionicons } from '@expo/vector-icons';
+import { Image } from 'react-native';
 
 export default function DrawerLayout () {
     return (
-        <Drawer screenOptions={{ headerShown: true}}>
-            <Drawer.Screen name='index' options={{title: 'Início', drawerIcon: () => <Ionicons name='home-outline' size={20}/>}}/>
-            <Drawer.Screen name='tabPokedex' options={{title: 'Pokédex', drawerIcon: () => <Ionicons name='book-outline' size={20}/>}}/>
-            <Drawer.Screen name='sobre' options={{title: 'Sobre', drawerIcon: () => <Ionicons name='information-circle-outline' size={20}/>}}/>          
+        <Drawer screenOptions={{ headerShown: true, drawerStyle: { height: '100%', width: '65%'}, drawerActiveBackgroundColor: 'white'}}>
+            <Drawer.Screen name='index' options={{title: 'Início', drawerIcon: () => <Image style={{ width: 20, height: 20 }} source={require('../../assets/homeDrawer.jpg')}/>}}/>
+            <Drawer.Screen name='tabPokedex' options={{title: 'Pokédex', drawerIcon: () => <Image style={{ width: 20, height: 20 }} source={require('../../assets/pokedex.jpg')}/>}}/>
+            <Drawer.Screen name='sobre' options={{title: 'Sobre', drawerIcon: () => <Image style={{ width: 20, height: 20 }} source={require('../../assets/sobreDrawer.jpg')}/>}}/>          
         </Drawer>
     )
 }

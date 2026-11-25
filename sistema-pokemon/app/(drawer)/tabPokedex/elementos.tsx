@@ -18,24 +18,24 @@ export default function Page() {
               <Image style={styles.imagem} source={require('../../../assets/multielemen.jpg')}/>
               <Text style={styles.titulo}>Forcas e fraquezas</Text>
               <Text style={[styles.texto, { textAlign: 'left' }]}>      
-              {`  Normal:   Não é super eficaz contra nenhum tipo
-  Fogo:   Planta, Gelo, Inseto, Aço (2x)
-  Água:   Fogo, Terrestre, Pedra (2x)
-  Planta:   Água, Terrestre, Pedra (2x)
-  Elétrico:   Água, Voador (2x)
-  Gelo:   Planta, Terrestre, Voador, Dragão (2x)
-  Lutador:   Normal, Gelo, Pedra, Sombrio, Aço (2x)
-  Venenoso:   Planta, Fada (2x)
-  Terrestre:   Fogo, Elétrico, Venenoso, Pedra, Aço (2x)
-  Voador:   Planta, Lutador, Inseto (2x)
-  Psíquico:   Lutador, Venenoso (2x)
-  Inseto:   Planta, Psíquico, Sombrio (2x)
-  Pedra:   Fogo, Gelo, Voador, Inseto (2x)
-  Fantasma:   Psíquico, Fantasma (2x)
-  Dragão:   Dragão (2x)
-  Sombrio:   Psíquico, Fantasma (2x)
-  Aço:   Gelo, Pedra, Fada (2x)
-  Fada:   Lutador, Dragão, Sombrio (2x)`}              
+              {`Normal:   Não é super eficaz contra nenhum tipo
+Fogo:   Planta, Gelo, Inseto, Aço (2x)
+Água:   Fogo, Terrestre, Pedra (2x)
+Planta:   Água, Terrestre, Pedra (2x)
+Elétrico:   Água, Voador (2x)
+Gelo:   Planta, Terrestre, Voador, Dragão (2x)
+Lutador:   Normal, Gelo, Pedra, Sombrio, Aço (2x)
+Venenoso:   Planta, Fada (2x)
+Terrestre:   Fogo, Elétrico, Venenoso, Pedra, Aço (2x)
+Voador:   Planta, Lutador, Inseto (2x)
+Psíquico:   Lutador, Venenoso (2x)
+Inseto:   Planta, Psíquico, Sombrio (2x)
+Pedra:   Fogo, Gelo, Voador, Inseto (2x)
+Fantasma:   Psíquico, Fantasma (2x)
+Dragão:   Dragão (2x)
+Sombrio:   Psíquico, Fantasma (2x)
+Aço:   Gelo, Pedra, Fada (2x)
+Fada:   Lutador, Dragão, Sombrio (2x)`}              
               </Text>
             </View>
           </View>
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   cardHome: {
     backgroundColor: 'white',
     borderRadius: 8,
-    marginVertical: 14,
+    marginVertical: 13,
     marginHorizontal: 18,
     padding: 14,
   },

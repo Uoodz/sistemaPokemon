@@ -37,8 +37,9 @@ const styles = StyleSheet.create({
   },
   imagem: {
     height: '180',
-    width: '350',
+    width: '325',
     alignSelf: 'center',
+    borderRadius: 8,
   },
   texto: {
     fontSize: 14,

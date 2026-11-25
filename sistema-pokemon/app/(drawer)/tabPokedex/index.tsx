@@ -55,7 +55,7 @@ export default function Page() {
                 source={{ uri: item.sprites.front_default }}
                 style={{ width: 90, height: 90 }}
               />
-              <Text style={{ fontSize: 16 }}>{item.id}   {item.name.charAt(0).toUpperCase() + item.name.slice(1)}</Text>
+              <Text style={{ fontSize: 16 }}>{item.id}  - {item.name.charAt(0).toUpperCase() + item.name.slice(1)}</Text>
               
             </View>
             </TouchableOpacity>
