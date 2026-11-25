@@ -1,19 +1,15 @@
-import { StyleSheet, Text, View, Image,ScrollView } from "react-native";
+import { StyleSheet, View, ScrollView, Image, Text } from "react-native";
+import { SafeAreaView, SafeAreaProvider} from "react-native-safe-area-context";
+import Card from "../../../components/Card";
 
 export default function Page() {
   return (
-      <ScrollView style={styles.container}>
-        <View>
-            <View style={styles.cardHome}>
-              <Image style={styles.imagem} source={require('../../../assets/elementospoke.png')}/>
-              <Text style={styles.titulo}>Elementos</Text>
-              <Text style={styles.texto}>No universo Pokémon, os elementos, também chamados de tipos, são características que definem as habilidades, os ataques, as resistências e as fraquezas de cada espécie. Atualmente, existem 18 tipos diferentes: Normal, Fogo, Água, Planta, Elétrico, Gelo, Lutador, Venenoso, Terrestre, Voador, Psíquico, Inseto, Pedra, Fantasma, Dragão, Sombrio, Aço e Fada. Cada tipo possui vantagens e desvantagens em relação aos demais, influenciando diretamente o resultado das batalhas. Alguns Pokémon possuem apenas um tipo, enquanto outros combinam dois, criando diferentes possibilidades de estratégias e combinações.</Text>
-            </View>
-            <View style={styles.cardHome}>
-              <Image style={styles.imagem} source={require('../../../assets/buffdebuff.jpg')}/>
-              <Text style={styles.titulo}>Forcas e fraquezas</Text>
-              <Text style={styles.texto}>No universo Pokémon, cada elemento possui vantagens e desvantagens em relação aos outros, formando um sistema de forças e fraquezas que influencia diretamente o resultado das batalhas. Quando um Pokémon utiliza um ataque contra um adversário que possui fraqueza àquele tipo, o dano causado é maior; já contra tipos resistentes, o dano é reduzido. Existem também imunidades, nas quais determinados tipos de Pokémon não recebem dano de certos ataques. Conhecer essas relações é fundamental para montar equipes equilibradas e desenvolver boas estratégias de combate.</Text>
-            </View>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        <ScrollView>
+          <View>
+            <Card imagem={require('../../../assets/elementospoke.png')} titulo='Elementos' texto='No universo Pokémon, os elementos, também chamados de tipos, são características que definem as habilidades, os ataques, as resistências e as fraquezas de cada espécie. Atualmente, existem 18 tipos diferentes: Normal, Fogo, Água, Planta, Elétrico, Gelo, Lutador, Venenoso, Terrestre, Voador, Psíquico, Inseto, Pedra, Fantasma, Dragão, Sombrio, Aço e Fada. Cada tipo possui vantagens e desvantagens em relação aos demais, influenciando diretamente o resultado das batalhas. Alguns Pokémon possuem apenas um tipo, enquanto outros combinam dois, criando diferentes possibilidades de estratégias e combinações.'/>
+            <Card imagem={require('../../../assets/buffdebuff.jpg')} titulo='Forças e fraquezas' texto='No universo Pokémon, cada elemento possui vantagens e desvantagens em relação aos outros, formando um sistema de forças e fraquezas que influencia diretamente o resultado das batalhas. Quando um Pokémon utiliza um ataque contra um adversário que possui fraqueza àquele tipo, o dano causado é maior; já contra tipos resistentes, o dano é reduzido. Existem também imunidades, nas quais determinados tipos de Pokémon não recebem dano de certos ataques. Conhecer essas relações é fundamental para montar equipes equilibradas e desenvolver boas estratégias de combate.'/>
             <View style={styles.cardHome}>
               <Image style={styles.imagem} source={require('../../../assets/multielemen.jpg')}/>
               <Text style={styles.titulo}>Forcas e fraquezas</Text>
@@ -39,7 +35,9 @@ Fada:   Lutador, Dragão, Sombrio (2x)`}
               </Text>
             </View>
           </View>
-      </ScrollView>
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
@@ -55,9 +53,10 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   imagem: {
-    height: '180',
-    width: '350',
+    height: '250',
+    width: '345',
     alignSelf: 'center',
+    borderRadius: 8,
   },
   texto: {
     fontSize: 14,
