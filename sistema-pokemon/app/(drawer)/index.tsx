@@ -1,6 +1,6 @@
 import { StyleSheet, View, ScrollView } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import Card from "../../components/Card";
+import Card from "../../src/components/Card";
 
 export default function Page() {
   return (
