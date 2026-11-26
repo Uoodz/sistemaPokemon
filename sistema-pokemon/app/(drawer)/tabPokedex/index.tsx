@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { favoritaEvents } from '../../../src/events/favoritaEvent';
 import { favoritarTime } from './time';
@@ -15,19 +16,12 @@ type Pokemon = {
     slot: number;
     type: { name: string };
   }[];
-  abilities: {
-    ability: { name: string };
-    is_hidden: boolean;
-  }[];
-  stats: {
-    base_stat: number;
-    stat: { name: string };
-  }[];
 };
 
 export default function Page() {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   const [favoritosIds, setFavoritosIds] = useState<number[]>([]);
+
 
   useEffect(() => {
     async function carregar() {
@@ -44,6 +38,8 @@ export default function Page() {
     }
     carregar();
   }, []);
+
+
 
   useEffect(() => {
     const carregarFavoritos = async () => {
@@ -78,27 +74,28 @@ export default function Page() {
   };
 
   return (
-    <View style={styles.container}>
-      <FlatList data={pokemons} keyExtractor={(p) => String(p.id)} renderItem={({ item }) => (
-          <View style={styles.cardPokedex}>
-            <Image source={{ uri: item.sprites.front_default }} style={{ width: 90, height: 90 }}/>
-            <View style={{ flex: 1, justifyContent: 'center' }}>
-              <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 12 }}>{item.id} - {item.name.charAt(0).toUpperCase() + item.name.slice(1)}</Text>
-              <Text style={{ marginLeft: 12 }}>Tipagem: {item.types.map((t) => t.type.name.charAt(0).toUpperCase() + t.type.name.slice(1)).join(' / ')}</Text>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <FlatList data={pokemons} keyExtractor={(p) => String(p.id)} renderItem={({ item }) => (
+            <View style={styles.cardPokedex}>
+              <Image source={{ uri: item.sprites.front_default }} style={{ width: 90, height: 90 }}/>
+              <View style={{ flex: 1, justifyContent: 'center' }}>
+                <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 12 }}>{item.id} - {item.name.charAt(0).toUpperCase() + item.name.slice(1)}</Text>
+                <Text style={{ marginLeft: 12 }}>Tipagem: {item.types.map((t) => t.type.name.charAt(0).toUpperCase() + t.type.name.slice(1)).join(' / ')}</Text>
+              </View>
+              <TouchableOpacity style={{ justifyContent: 'center', paddingHorizontal: 8 }} onPress={() => toggleFavorito(item.id)}>
+                  <MaterialCommunityIcons name="pokeball" size={26} color={favoritosIds.includes(item.id) ? '#f80000' : '#b8b8b8'}/>
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity style={{ justifyContent: 'center', paddingHorizontal: 8 }} onPress={() => toggleFavorito(item.id)}>
-                <MaterialCommunityIcons name="pokeball" size={26} color={favoritosIds.includes(item.id) ? '#f80000' : '#b8b8b8'}/>
-            </TouchableOpacity>
-          </View>
-        )}
-      />
-    </View>
+          )}
+        />
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#f1f1f1',
   },
   cardPokedex: {

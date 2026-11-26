@@ -8,7 +8,7 @@ export default function Page() {
       <SafeAreaView>
         <ScrollView>
           <View style={styles.container}>
-            <Card imagem={require('../../assets/pokemon.png')} titulo="Biblioteca Pokémon" texto="Nosso aplicativo busca ensinar tudo sobre o mundo Pokemon para você e isso inclui seus nomes, seus identificadores, elementos, tipagens, evoluções, habilidades e suas artes oficiais. E você pode conferir tudo isso através da Pokédex! Fora tudo isso você também conseguirá montar seu próprio time de pokemons e verifica-lo, será calculado um sistema de força para sua equipe onde irá análisar seus pokemons (Ataque, Vida, Defesa, Ataque Especial, Defesa Especial) e também suas diferentes tipagens para definir se sua equipe é completa."/>
+            <Card imagem={require('../../assets/pokemon.jpg')} titulo="Biblioteca Pokémon" texto="Nosso aplicativo busca ensinar tudo sobre o mundo Pokemon para você e isso inclui seus nomes, seus identificadores, elementos, tipagens, evoluções, habilidades e suas artes oficiais. E você pode conferir tudo isso através da Pokédex! Fora tudo isso você também conseguirá montar seu próprio time de pokemons e verifica-lo, será calculado um sistema de força para sua equipe onde irá análisar seus pokemons (Ataque, Vida, Defesa, Ataque Especial, Defesa Especial) e também suas diferentes tipagens para definir se sua equipe é completa."/>
           </View>
         </ScrollView>
       </SafeAreaView>

@@ -1,9 +1,11 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text, ActivityIndicator, StyleSheet, FlatList, View, Image, TouchableOpacity } from 'react-native';
+import { Text, ActivityIndicator, StyleSheet, FlatList, View, Image, TouchableOpacity, Alert } from 'react-native';
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { favoritaEvents } from '../../../src/events/favoritaEvent';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { duelarPorStatus, calcularMediaStatus } from '../../../src/utils/batalha';
+
 
 const URL = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=151';
 
@@ -18,6 +20,9 @@ type Pokemon = {
   types: {
     slot: number;
     type: { name: string };
+  }[];
+  stats: {
+    base_stat: number;
   }[];
 };
 
@@ -60,6 +65,9 @@ export default function FavoritosScreen() {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [resultados, setResultados] = useState<string[]>([]);
+  const [placar, setPlacar] = useState<string>('');
+  const [carregandoLuta, setCarregandoLuta] = useState<boolean>(false);
 
   useEffect(() => {
     listarPokemons();
@@ -73,7 +81,7 @@ export default function FavoritosScreen() {
 
   if (isLoading) {
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" />
         <Text>Carregando pokémons...</Text>
       </SafeAreaView>
@@ -82,7 +90,7 @@ export default function FavoritosScreen() {
 
   if (error) {
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>Falha ao carregar pokémons.</Text>
         <Text>{error}</Text>
       </SafeAreaView>
@@ -98,8 +106,76 @@ export default function FavoritosScreen() {
     favoritaEvents.emit('favoritos:changed');
   };
 
+  async function batalhar() {
+    if (pokemons.length === 0) 
+      return;
+
+    setCarregandoLuta(true);
+    setResultados([]);
+    setPlacar('');
+
+    const rivais: Pokemon[] = [];
+    for (let i = 0; i < pokemons.length; i++) {
+      const idAleatorio = Math.floor(Math.random() * 151) + 1;
+      const resposta = await fetch(`https://pokeapi.co/api/v2/pokemon/${idAleatorio}`);
+      const dados = await resposta.json();
+      rivais.push(dados);
+    }
+
+    let minhasVitorias = 0;
+    let vitoriasRival = 0;
+    const frasesRounds: string[] = [];
+
+    for (let i = 0; i < pokemons.length; i++) {
+      const resultadoDuelo = duelarPorStatus(pokemons[i], rivais[i]);
+
+      if (resultadoDuelo === 'Parabéns! Você venceu o duelo!') {
+        minhasVitorias++;
+        frasesRounds.push(`Round ${i + 1}: ${pokemons[i].name.charAt(0).toUpperCase() + pokemons[i].name.slice(1) } (${calcularMediaStatus(pokemons[i]).toFixed(1)}) venceu ${rivais[i].name.charAt(0).toUpperCase() + rivais[i].name.slice(1) } (${calcularMediaStatus(rivais[i]).toFixed(1)})`);
+      } 
+      else
+        if (resultadoDuelo === 'Você perdeu o duelo.') {
+          vitoriasRival++;
+          frasesRounds.push(`Round ${i + 1}: ${pokemons[i].name.charAt(0).toUpperCase() + pokemons[i].name.slice(1) } (${calcularMediaStatus(pokemons[i]).toFixed(1)}) perdeu para ${rivais[i].name.charAt(0).toUpperCase() + rivais[i].name.slice(1) } (${calcularMediaStatus(rivais[i]).toFixed(1)})`);
+      } 
+      else {
+        frasesRounds.push(`Round ${i + 1}: ${pokemons[i].name.charAt(0).toUpperCase() + pokemons[i].name.slice(1) } (${calcularMediaStatus(pokemons[i]).toFixed(1)}) empatou com ${rivais[i].name.charAt(0).toUpperCase() + rivais[i].name.slice(1) } (${calcularMediaStatus(rivais[i]).toFixed(1)})`);
+      }
+    }
+
+    setResultados(frasesRounds);
+
+    if (minhasVitorias > vitoriasRival) {
+      setPlacar(`Você venceu! (${minhasVitorias} x ${vitoriasRival})`);
+    } 
+    else
+      if (vitoriasRival > minhasVitorias) {
+        setPlacar(`Você perdeu! (${minhasVitorias} x ${vitoriasRival})`);
+    } 
+    else {
+      setPlacar(`Empate! (${minhasVitorias} x ${vitoriasRival})`);
+    }
+
+    setCarregandoLuta(false);
+  }
+
+  function renderResultado() {
+    if (!placar) {
+      return null;
+    }
+    return (
+      <View style={{ backgroundColor: 'white', margin: 12, padding: 10, borderRadius: 8 }}>
+        <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{placar}</Text>
+        {resultados.map((texto, i) => (
+          <Text key={i}>{texto}</Text>
+        ))}
+      </View>
+    );
+  }
+
+
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }} edges={['top', 'left', 'right']}>
       <Text style={styles.titulo}>Meu Time ({pokemons.length}/6)</Text>
       <FlatList style={styles.flatList} data={pokemons} keyExtractor={(item) => String(item.id)}  ListEmptyComponent={() => (
           <Text style={styles.titulo}>Nenhum pokémon adicionado ao time.</Text>)} renderItem={({ item }) => (
@@ -114,6 +190,10 @@ export default function FavoritosScreen() {
             </TouchableOpacity>
           </View>
       )}/>
+      <TouchableOpacity style={styles.botaoBatalhar} onPress={batalhar}>
+        <Text style={{ color: 'white', fontWeight: 'bold' }}>{carregandoLuta ? 'Lutando...' : 'Batalhar!'}</Text>
+      </TouchableOpacity>
+      <View>{renderResultado()}</View>
     </SafeAreaView>
   );
 }
@@ -121,6 +201,7 @@ export default function FavoritosScreen() {
 const styles = StyleSheet.create({
   flatList: {
     width: '100%',
+    flex: 1,
   },
 
   cardPokedex: {
@@ -139,5 +220,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 12,
     marginBottom: 4,
-  }
+    color: 'blue',
+  },
+
+  botaoBatalhar: {
+    backgroundColor: 'blue',
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginLeft: 20,
+    marginRight: 20,
+  },
 });
