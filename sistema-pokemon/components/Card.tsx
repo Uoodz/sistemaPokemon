@@ -18,12 +18,12 @@ const styles = StyleSheet.create({
   cardHome: {
     backgroundColor: 'white',
     borderRadius: 8,
-    marginVertical: 10,
-    marginHorizontal: 18,
-    padding: 14,
+    marginVertical: 25,
+    marginHorizontal: 25,
+    marginBottom: 30,
   },
 
-    titulos: {
+  titulos: {
     fontSize: 20,
     alignSelf: 'center',
     fontWeight: 'bold',
@@ -32,14 +32,14 @@ const styles = StyleSheet.create({
 
   imagens: {
     height: '250',
-    width: '345',
+    width: '335',
     alignSelf: 'center',
     borderRadius: 8,
   },
 
   textos: {
     fontSize: 14,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     marginTop: 7,
     textAlign: 'justify',
     marginBottom: 30,

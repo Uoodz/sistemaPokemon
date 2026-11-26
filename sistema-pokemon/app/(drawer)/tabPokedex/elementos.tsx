@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   imagem: {
     height: '250',
-    width: '345',
+    width: '335',
     alignSelf: 'center',
     borderRadius: 8,
   },
@@ -63,12 +63,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginTop: 7,
     textAlign: 'justify',
+    marginBottom: 30,
   },
   cardHome: {
     backgroundColor: 'white',
     borderRadius: 8,
-    marginVertical: 13,
-    marginHorizontal: 18,
-    padding: 14,
+    marginVertical: 25,
+    marginHorizontal: 25,
   },
 });

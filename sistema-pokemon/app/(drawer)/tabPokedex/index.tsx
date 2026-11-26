@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text, View, Image,TouchableOpacity,Modal, } from "react-native";
+import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 const pokemons = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=151'
 
 type Pokemon = {
@@ -53,10 +53,11 @@ export default function Page() {
             <View style={styles.cardPokedex}>
               <Image
                 source={{ uri: item.sprites.front_default }}
-                style={{ width: 90, height: 90 }}
-              />
-              <Text style={{ fontSize: 16 }}>{item.id}  - {item.name.charAt(0).toUpperCase() + item.name.slice(1)}</Text>
-              
+                style={{ width: 90, height: 90 }}/>
+              <View>
+                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{item.id}  - {item.name.charAt(0).toUpperCase() + item.name.slice(1)}</Text>
+                <Text>Tipagem: {item.types.map((t) => t.type.name.charAt(0).toUpperCase() + t.type.name.slice(1)).join(' / ')}</Text>
+              </View>
             </View>
             </TouchableOpacity>
           )}
