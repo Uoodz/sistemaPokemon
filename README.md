@@ -39,7 +39,7 @@ O app usa roteamento baseado em arquivos (file-based routing) e combina dois tip
 
 ## Instalação
 
-git clone https://github.com/seu-usuario/seu-projeto.git
+git clone https://github.com/Uoodz/sistemaPokemon
 cd seu-projeto
 npm install
 
