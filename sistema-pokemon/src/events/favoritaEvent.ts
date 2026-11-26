@@ -1,4 +1,2 @@
-import { NativeEventEmitter } from 'react-native';
-
-
-export const favoritaEvents = new NativeEventEmitter();
+import { DeviceEventEmitter } from 'react-native';
+export const favoritaEvents = DeviceEventEmitter;

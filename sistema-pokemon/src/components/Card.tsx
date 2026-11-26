@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     marginVertical: 25,
     marginHorizontal: 25,
     marginBottom: 30,
+    padding: 10,
   },
 
   titulos: {

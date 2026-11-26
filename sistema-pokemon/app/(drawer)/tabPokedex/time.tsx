@@ -68,6 +68,7 @@ export default function FavoritosScreen() {
   const [resultados, setResultados] = useState<string[]>([]);
   const [placar, setPlacar] = useState<string>('');
   const [carregandoLuta, setCarregandoLuta] = useState<boolean>(false);
+  const [corPlacar, setCorPlacar] = useState("black");
 
   useEffect(() => {
     listarPokemons();
@@ -147,13 +148,16 @@ export default function FavoritosScreen() {
 
     if (minhasVitorias > vitoriasRival) {
       setPlacar(`Você venceu! (${minhasVitorias} x ${vitoriasRival})`);
+      setCorPlacar("green");
     } 
     else
       if (vitoriasRival > minhasVitorias) {
         setPlacar(`Você perdeu! (${minhasVitorias} x ${vitoriasRival})`);
+        setCorPlacar("red");
     } 
     else {
       setPlacar(`Empate! (${minhasVitorias} x ${vitoriasRival})`);
+      setCorPlacar("orange");
     }
 
     setCarregandoLuta(false);
@@ -165,7 +169,7 @@ export default function FavoritosScreen() {
     }
     return (
       <View style={{ backgroundColor: 'white', margin: 12, padding: 10, borderRadius: 8 }}>
-        <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{placar}</Text>
+        <Text style={{ fontWeight: 'bold', fontSize: 16, color: corPlacar }}>{placar}</Text>
         {resultados.map((texto, i) => (
           <Text key={i}>{texto}</Text>
         ))}
